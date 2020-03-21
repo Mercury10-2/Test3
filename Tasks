@@ -1,0 +1,121 @@
+=======================================================================
+=========================  Задание 1  =================================
+=======================================================================
+
+function sortThisArray(array, isAsc) {
+    if (isAsc < 0.5)
+        array.sort((a, b) => a - b);
+    else
+        array.sort((a, b) => b - a);
+    console.log((isAsc).toFixed(2));
+    return array;
+}
+
+let data = [];
+for (let i = 0; i < 10; i++)
+    data.push(Math.ceil(Math.random() * (100 - 1) + 1));
+console.log(sortThisArray(data, Math.random()));
+
+=======================================================================
+=========================  Задание 2  =================================
+=======================================================================
+
+function russianFlag() {
+    const flag = document.querySelector('#flag');
+    document.body.style.backgroundColor = 'black';
+    let div, buffer, j;
+    for (let i = 0; i < 60; i++) {
+        buffer = '';
+        div = document.createElement('div');
+        for (j = 0; j < 80; j++)
+            buffer += 'O';
+        div.innerHTML = buffer;
+        div.style.color = i < 20 ? 'white' : i < 40 ? 'blue' : 'red';
+        flag.append(div);
+    }
+}
+
+russianFlag();
+----------------------
+HTML body:
+<div id="flag"></div>
+<script src="app.js"></script>
+----------------------
+
+=======================================================================
+=========================  Задания 3, 4  ==============================
+=======================================================================
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Phone Numbers</title>
+    <script>
+        function openOneMore() {
+            const more = document.querySelector('#ph');
+            let dv = document.createElement('div');
+            let inpt = document.createElement('input');
+            let newspan = document.createElement('span');
+            let bn = document.createElement('button');
+            document.getElementById('adder').parentNode.removeChild(document.getElementById('adder'));
+            dv.setAttribute('class', 'input-group');
+            inpt.setAttribute('type', 'text');
+            inpt.setAttribute('class', 'form-control mt-2');
+            inpt.setAttribute('id', 'phone');
+            inpt.setAttribute('placeholder', 'Add another phone number ...');
+            newspan.setAttribute('class', 'input-grp-btn');
+            newspan.setAttribute('id', 'adder');
+            bn.setAttribute('class', 'btn btn-primary ml-2 mt-2');
+            bn.setAttribute('id', 'more');
+            bn.setAttribute('onclick', 'openOneMore(); return false');
+            bn.innerHTML = '+';
+            more.appendChild(dv);
+            dv.appendChild(inpt);
+            dv.appendChild(newspan);
+            newspan.appendChild(bn);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Information <small>(test ver.)</small></h1>
+        <div class="jumbotron">
+            <h2>Fill in the following:</h3>
+            <form id="form">
+                <div class="form-group">
+                    <label for="name">Your name:</label>
+                    <input type="text" class="form-control" id="name" placeholder="First and Last names ...">
+                </div>
+                <div class="form-group" id="ph">
+                    <label for="phone">Phone number:</label>
+                    <div class="input-group" id="plus">
+                        <input type="text" class="form-control" id="phone" placeholder="Phone number ...">
+                        <span class="input-group-btn" id="adder">
+                            <button class="btn btn-primary ml-2" id="more" onclick="openOneMore(); return false">+</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="commentary">Commentary:</label>
+                    <input type="text" class="form-control" id="commentary" placeholder="Any additional information ...">
+                </div>
+                <button class="btn btn-primary" type="submit">Confirm</button>
+            </form>
+        </div>
+        <div class="footer">
+            <p>&copy for Test</p>
+        </div>
+    </div>
+</body>
+</html>
+
+=========================================================================
+=========================  SQL: Задание 1  ==============================
+=========================================================================
+
+select employee.name, employee.department_id from employee
+join (select max(salary) as maxsal, department_id as dept from employee group by department_id)
+department on department.id = employee.department_id and employee.salary = department.maxsal;
